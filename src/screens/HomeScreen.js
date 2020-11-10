@@ -11,6 +11,11 @@ function HomeScreen() {
   //   useEffect(()=>{
 
   //   },[])
+  const [state, setState] = useState({
+    showVideo: false,
+    height: Dimensions.get('screen').height,
+    width: Dimensions.get('screen').width
+  })
 
   const changeOrientation = (orientation) => {
     console.log(orientation);
@@ -19,7 +24,11 @@ function HomeScreen() {
         Dimensions.get('screen').width,
         Dimensions.get('screen').height,
       );
-      setShowVideo(true);
+      setState({
+        height: Dimensions.get('screen').width>Dimensions.get('screen').height?Dimensions.get('screen').width:Dimensions.get('screen').height,
+        width:Dimensions.get('screen').width<Dimensions.get('screen').height?Dimensions.get('screen').width:Dimensions.get('screen').height,
+        showVideo: true
+      });
     } else if (
       orientation === 'PORTRAIT-UPSIDEDOWN' ||
       orientation === 'PORTRAIT'
@@ -28,9 +37,15 @@ function HomeScreen() {
         Dimensions.get('window').width,
         Dimensions.get('window').height,
       );
-      setShowVideo(false);
+      setState({
+        height: Dimensions.get('screen').width>Dimensions.get('screen').height?Dimensions.get('screen').width:Dimensions.get('screen').height,
+        width:Dimensions.get('screen').width<Dimensions.get('screen').height?Dimensions.get('screen').width:Dimensions.get('screen').height,
+        showVideo: false
+      });
     }
   };
+
+
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -40,15 +55,15 @@ function HomeScreen() {
         onDeviceChange={(orientation) => changeOrientation(orientation)}
       />
 
-      {showVideo ? (
+      {state.showVideo ? (
         <View>
           <ScreenOrientation orientation={LANDSCAPE} />
           <View>
             <Image
               source={landscapeImage}
               style={{
-                width: Dimensions.get('screen').width,
-                height: Dimensions.get('screen').height,
+                width: state.height,
+                height: state.width,
                 resizeMode: 'stretch',
               }}
             />
@@ -59,8 +74,8 @@ function HomeScreen() {
           <Image
             source={portraitImage}
             style={{
-              width: Dimensions.get('screen').height,
-              height: Dimensions.get('screen').width,
+              width: state.width,
+              height: state.height,
               resizeMode: 'stretch',
             }}
           />

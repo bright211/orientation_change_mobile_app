@@ -47,8 +47,8 @@ function HomeScreen() {
             <Image
               source={landscapeImage}
               style={{
-                width: Dimensions.get('screen').width,
-                height: Dimensions.get('screen').height,
+                width: Dimensions.get('screen').height,
+                height: Dimensions.get('screen').width,
                 resizeMode: 'stretch',
               }}
             />
@@ -59,8 +59,8 @@ function HomeScreen() {
           <Image
             source={portraitImage}
             style={{
-              width: Dimensions.get('screen').height,
-              height: Dimensions.get('screen').width,
+              width: Dimensions.get('screen').width,
+              height: Dimensions.get('screen').height,
               resizeMode: 'stretch',
             }}
           />
